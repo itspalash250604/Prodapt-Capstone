@@ -1,35 +1,111 @@
-# Course Finder AI
 
-Course Finder AI is an AI-powered course recommendation system that helps a learner discover relevant online courses based on their profile, goals, and skill gaps. The backend analyzes the input, retrieves matching courses from a semantic index, optionally reranks the results, and then enriches the recommendations with supporting details such as rationale, preparation guidance, and learning-path notes. The React frontend provides the user interface for trying the system end to end.
+# 🚀 Course Finder AI
 
-## What This Project Does
+An **AI-powered course recommendation platform** that helps learners discover the most relevant online courses based on their **career goals, existing skills, learning intent, and skill gaps**.
 
-At a high level, the app:
+The system intelligently analyzes learner profiles, retrieves semantically relevant courses, evaluates career alignment, and generates personalized learning guidance.
 
-1. Accepts a learner query and related profile information.
-2. Retrieves semantically similar courses from the indexed dataset.
-3. Uses a recommendation workflow to evaluate career alignment, skill gaps, guardrails, and a learning path.
-4. Returns ranked course suggestions with explanations and next-step guidance.
+---
 
-The project is built around FastAPI, LangGraph, Sentence Transformers, ChromaDB, and a React frontend.
+## ✨ Features
 
-## Repository Layout
+✅ **Personalized Course Recommendations**  
+Get course suggestions tailored to your goals, current skills, and learning objectives.
 
-- `app/` - FastAPI backend, agents, retrieval, guardrails, skill-gap analysis, and learning-path logic.
-- `data/` - Course dataset and ChromaDB index files.
-- `react_frontend/` - Vite + React frontend.
-- `scripts/` - Utility scripts for preprocessing, indexing, evaluation, and analysis.
-- `tests/` - Automated tests for the backend workflow and supporting modules.
+✅ **Skill Gap Analysis**  
+Identifies missing skills required to achieve a target career path.
 
-## Requirements
+✅ **Semantic Course Retrieval**  
+Uses vector search and embeddings to find the most relevant courses.
 
-- Python 3.10+ recommended
-- Node.js 18+ recommended
-- npm
+✅ **AI-Powered Recommendation Workflow**  
+Evaluates:
+- Career alignment
+- Skill gaps
+- Learning readiness
+- Guardrails & recommendation quality
+- Learning path progression
 
-## Setup
+✅ **Learning Path Guidance**  
+Provides preparation advice and next-step recommendations.
 
-### 1. Create and activate a virtual environment
+✅ **Multi-Input Support**
+- Text-based learner queries
+- PDF profile/document upload
+- Audio input transcription
+
+✅ **Interactive Frontend**
+Modern React UI for end-to-end interaction.
+
+---
+
+## 🏗️ Tech Stack
+
+### Backend
+- **FastAPI** – API framework
+- **LangGraph** – Multi-step recommendation workflow
+- **Sentence Transformers** – Embedding generation
+- **ChromaDB** – Vector database for semantic retrieval
+- **Python** – Core backend logic
+
+### Frontend
+- **React (Vite)** – User interface
+- **JavaScript** – Frontend logic
+
+### AI / NLP
+- **Semantic Search**
+- **Vector Embeddings**
+- **Skill Gap Analysis**
+- **Learning Path Generation**
+
+---
+
+## 📂 Project Structure
+
+```
+course-finder-ai/
+│── app/                  # FastAPI backend, agents, workflows
+│── data/                 # Dataset and ChromaDB index
+│── react_frontend/       # React + Vite frontend
+│── scripts/              # Utility scripts
+│── tests/                # Automated tests
+│── requirements.txt
+│── README.md
+```
+### Folder Overview
+
+| Folder            | Description                                                                        |
+| ----------------- | ---------------------------------------------------------------------------------- |
+| `app/`            | Backend APIs, LangGraph workflow, retrieval system, guardrails, skill-gap analysis |
+| `data/`           | Course dataset and vector index                                                    |
+| `react_frontend/` | Frontend built using React + Vite                                                  |
+| `scripts/`        | Data preprocessing, indexing, evaluation scripts                                   |
+| `tests/`          | Backend unit and integration tests                                                 |
+
+---
+
+## ⚙️ Requirements
+
+Before running the project, make sure you have:
+
+* **Python 3.10+**
+* **Node.js 18+**
+* **npm**
+
+---
+
+# 🛠️ Installation & Setup
+
+## 1️⃣ Clone the Repository
+
+```powershell
+git clone <your-repo-url>
+cd course-finder-ai
+```
+
+---
+
+## 2️⃣ Create a Virtual Environment
 
 From the project root:
 
@@ -38,67 +114,112 @@ python -m venv venv
 .\venv\Scripts\Activate.ps1
 ```
 
-If PowerShell blocks script execution, run:
+### PowerShell Execution Policy Fix
+
+If PowerShell blocks script execution:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
 ```
 
-### 2. Install Python dependencies
+---
+
+## 3️⃣ Install Backend Dependencies
 
 ```powershell
 pip install -r requirements.txt
 ```
 
-### 3. Install frontend dependencies
+---
+
+## 4️⃣ Install Frontend Dependencies
 
 ```powershell
 cd react_frontend
 npm install
 ```
 
-## How To Run The App
+---
 
-You need two terminals: one for the backend and one for the frontend.
+# ▶️ Running The Application
 
-### Backend
+You will need **two terminals** running simultaneously.
 
-Open a terminal in the project root `course-finder-ai/` and run:
+---
+
+## Terminal 1 — Backend
+
+From the project root:
 
 ```powershell
 uvicorn app.main:app --reload
 ```
 
-The backend will start once the models and services finish loading.
+The backend may take some time to initialize while loading:
 
-### Frontend
+* Embedding models
+* Retrieval components
+* Workflow services
 
-Open a second terminal and go to `course-finder-ai/react_frontend`, then run:
+Backend runs at:
+
+```txt
+http://127.0.0.1:8000
+```
+
+---
+
+## Terminal 2 — Frontend
+
+Navigate to the frontend directory:
 
 ```powershell
+cd react_frontend
 npm run dev
 ```
 
-After both services are running, open the local URL shown by Vite in your browser and use the app normally.
+Vite will provide a local URL such as:
 
-## Backend API
+```txt
+http://localhost:5173
+```
 
-The FastAPI app exposes its routes under `/api/v1`.
+Open it in your browser to use the application.
 
-- `GET /api/v1/health` - health check
-- `POST /api/v1/intake/pdf` - upload and normalize a PDF profile or document
-- `POST /api/v1/intake/audio` - upload and transcribe audio input
-- `POST /api/v1/recommendations` - generate course recommendations
+---
 
-When the backend is running, interactive API docs are available at:
+# 🔌 API Endpoints
 
-- `http://127.0.0.1:8000/docs`
+Base route:
 
-## Optional Retrieval Cache
+```txt
+/api/v1
+```
 
-Semantic course search supports caching repeated queries. By default it uses an in-memory cache, and it can switch to Redis when `REDIS_URL` is set.
+| Method | Endpoint           | Description                         |
+| ------ | ------------------ | ----------------------------------- |
+| `GET`  | `/health`          | Health check                        |
+| `POST` | `/intake/pdf`      | Upload and normalize PDF profile    |
+| `POST` | `/intake/audio`    | Upload and transcribe audio         |
+| `POST` | `/recommendations` | Generate AI-powered recommendations |
 
-Recommended environment variables:
+---
+
+## 📘 API Documentation
+
+Once the backend is running, interactive API docs are available at:
+
+```txt
+http://127.0.0.1:8000/docs
+```
+
+---
+
+# ⚡ Retrieval Cache (Optional)
+
+Semantic search supports query caching for faster repeated recommendations.
+
+### Recommended Environment Variables
 
 ```bash
 REDIS_URL=redis://localhost:6379/0
@@ -106,25 +227,116 @@ COURSE_SEARCH_CACHE_TTL_SECONDS=3600
 COURSE_SEARCH_CACHE_PREFIX=course_search
 ```
 
-Notes:
+### Cache Behavior
 
-- If Redis is available, it will be used for shared cache storage.
-- If Redis is unavailable, the app falls back to an in-memory cache automatically.
-- Cached entries are keyed by the query, `top_k`, filters, collection name, and embedding model name.
+* Uses **Redis** if available
+* Falls back to **in-memory caching** automatically
+* Cache keys include:
 
-## Useful Commands
+  * query
+  * top_k
+  * filters
+  * collection name
+  * embedding model
+
+---
+
+# 🧪 Useful Commands
+
+### Run Backend Tests
 
 ```powershell
-# Run backend tests
 venv\Scripts\python.exe -m pytest
+```
 
-# Build the React frontend
+### Build Frontend
+
+```powershell
 cd react_frontend
 npm run build
 ```
 
-## Troubleshooting
+---
 
-- If Python packages fail to import, make sure the virtual environment is activated before starting the backend.
-- If the frontend cannot reach the backend, confirm that `uvicorn` is still running and that the backend is listening on port `8000`.
-- If model loading is slow on the first run, wait a little longer after starting the backend. The app may need extra time to initialize embeddings and retrieval components.
+# 🐞 Troubleshooting
+
+### Python Import Errors
+
+Ensure the virtual environment is activated:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
+---
+
+### Frontend Cannot Reach Backend
+
+Verify:
+
+* `uvicorn` is still running
+* Backend is active on port `8000`
+
+---
+
+### Slow Model Loading
+
+The first startup may take longer because:
+
+* Embedding models are loading
+* Vector retrieval systems are initializing
+
+Please wait a few moments after starting the backend.
+
+---
+
+# 🎯 How It Works
+
+```txt
+Learner Input
+      ↓
+Profile + Goal Analysis
+      ↓
+Skill Gap Detection
+      ↓
+Semantic Course Retrieval
+      ↓
+AI Recommendation Workflow
+      ↓
+Reranking & Validation
+      ↓
+Personalized Course Suggestions
+      ↓
+Learning Path Guidance
+```
+
+---
+
+# 🤝 Contributing
+
+Contributions, improvements, and suggestions are welcome.
+
+Feel free to fork the repository and submit a pull request.
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**.
+
+
+
+### What improved?
+- Better **GitHub visual appeal**
+- Cleaner **section hierarchy**
+- More professional formatting
+- Added **feature highlights**
+- Better **tech stack presentation**
+- Added **workflow diagram**
+- Better **table formatting**
+- More readable setup instructions
+- Cleaner **API documentation**
+- Professional **open-source feel**
+
+This version will look much more polished on GitHub and closer to production-grade repositories recruiters or internship evaluators expect to see.
+    
