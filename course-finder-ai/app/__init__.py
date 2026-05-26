@@ -1,0 +1,1 @@
+"""Course Finder application package."""
